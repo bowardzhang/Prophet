@@ -11,6 +11,7 @@ import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 
 import experimentGUI.util.Pair;
 
+
 @SuppressWarnings("serial")
 public class FormularBox extends JComboBox implements ActionListener {
 
@@ -21,14 +22,14 @@ public class FormularBox extends JComboBox implements ActionListener {
 		super();
 		this.editArea = editArea;
 		forms = new ArrayList<String>();
-		forms.add("Textfeld"); // index 1
+		forms.add("Textfield"); // index 1
 		forms.add("TextArea"); // index 2
-		forms.add("Liste"); // index 3
+		forms.add("List"); // index 3
 		forms.add("Combobox"); // index 4
 		forms.add("Radiobutton"); // index 5
-		forms.add("Checkboxen"); // index 6
+		forms.add("Checkbox"); //index 6
 
-		this.addItem("Formulare");
+		this.addItem("Forms");
 		for (int i = 0; i < forms.size(); i++) {
 			this.addItem(forms.get(i));
 		}
@@ -41,24 +42,23 @@ public class FormularBox extends JComboBox implements ActionListener {
 			return;
 		case 1: // texfield
 			String textFieldName = JOptionPane.showInputDialog(null,
-					"Name des Textfeldes:", "Textfeld", 1);
+					"Name of the Textfield:", "Textfield", 1);
 			if (textFieldName != null) {
 				editArea.replaceSelection("<input type=\"text\" name=\""
-						+ textFieldName + "\" id=\"" + textFieldName + "\">");
+						+ textFieldName + "\">");
 			}
 			break;
 		case 2: // textarea
 			String textAreaName = JOptionPane.showInputDialog(this,
-					"Name des Textareas:", "Textarea", 1);
+					"Name of the Textarea:", "Textarea", 1);
 			if (textAreaName != null) {
 				editArea.replaceSelection("<textarea name=\"" + textAreaName
-						+ "\" id=\"" + textAreaName
 						+ "\" cols=\"50\" rows=\"10\"></textarea>");
 			}
 			break;
-		case 3: // liste
+		case 3: // list
 			Pair<String, String> listInfos = MultilineDialogs
-					.showMultilineInputDialog("Listeninformationen");
+					.showMultilineInputDialog("List Information");
 			if (listInfos != null) {
 				String[] listEntrys = listInfos.getValue().split(
 						System.getProperty("line.separator"));
@@ -69,14 +69,13 @@ public class FormularBox extends JComboBox implements ActionListener {
 							+ listEntrys[i] + "</option>";
 				}
 				editArea.replaceSelection("<select name=\""
-						+ listInfos.getKey() + "\" id=\"" + listInfos.getKey()
-						+ "\" size=\"3\" multiple>" + list
+						+ listInfos.getKey() + "\" size=\"3\" multiple>" + list
 						+ System.getProperty("line.separator") + "</select>");
 			}
 			break;
 		case 4: // Combobox
 			Pair<String, String> comboInfos = MultilineDialogs
-					.showMultilineInputDialog("Listeninformationen");
+					.showMultilineInputDialog("List Information");
 			if (comboInfos != null) {
 				String[] comboEntrys = comboInfos.getValue().split(
 						System.getProperty("line.separator"));
@@ -87,21 +86,19 @@ public class FormularBox extends JComboBox implements ActionListener {
 							+ comboEntrys[i] + "</option>";
 				}
 				editArea.replaceSelection("<select name=\""
-						+ comboInfos.getKey() + "\" id=\""
 						+ comboInfos.getKey() + "\">" + combos
 						+ System.getProperty("line.separator") + "</select>");
 			}
 			break;
 		case 5: // RadioButton
 			Pair<String, String> radioInfos = MultilineDialogs
-					.showMultilineInputDialog("Listeninformationen");
+					.showMultilineInputDialog("List Information");
 			if (radioInfos != null) {
 				String[] radioEntrys = radioInfos.getValue().split(
 						System.getProperty("line.separator"));
 				String radios = "";
 				for (int i = 0; i < radioEntrys.length; i++) {
 					radios += "<input type=\"radio\" name=\""
-							+ radioInfos.getKey() + "\" id=\""
 							+ radioInfos.getKey() + "\" value=\""
 							+ radioEntrys[i] + "\">" + radioEntrys[i] + "<br>"
 							+ System.getProperty("line.separator");
@@ -111,14 +108,13 @@ public class FormularBox extends JComboBox implements ActionListener {
 			break;
 		case 6: // CheckBox
 			Pair<String, String> checkInfos = MultilineDialogs
-					.showMultilineInputDialog("Listeninformationen");
+					.showMultilineInputDialog("List Information");
 			if (checkInfos != null) {
 				String[] checkEntrys = checkInfos.getValue().split(
 						System.getProperty("line.separator"));
 				String checks = "";
 				for (int i = 0; i < checkEntrys.length; i++) {
 					checks += "<input type=\"checkbox\" name=\""
-							+ checkInfos.getKey() + "\" id=\""
 							+ checkInfos.getKey() + "\" value=\""
 							+ checkEntrys[i] + "\">" + checkEntrys[i] + "<br>"
 							+ System.getProperty("line.separator");
