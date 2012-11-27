@@ -38,23 +38,23 @@ public class ExperimentEditorMenuBar extends JMenuBar {
 	/**
 	 * String constants for the menu(items)
 	 */
-	public final static String MENU_FILE = "Datei";
-	public final static String MENU_FILE_NEW = "Neu";
-	public final static String MENU_FILE_OPEN = "Laden";
-	public final static String MENU_FILE_SAVE = "Speichern";
-	public final static String MENU_FILE_SAVE_AS = "Speichern unter...";
-	public final static String MENU_FILE_QUIT = "Beenden";
+	public final static String MENU_FILE = "Data";
+	public final static String MENU_FILE_NEW = "New";
+	public final static String MENU_FILE_OPEN = "Load";
+	public final static String MENU_FILE_SAVE = "Save";
+	public final static String MENU_FILE_SAVE_AS = "Save as...";
+	public final static String MENU_FILE_QUIT = "Exit";
 
-	public final static String MENU_EDIT = "Bearbeiten";
-	public final static String MENU_EDIT_FIND = "Suchen";
+	public final static String MENU_EDIT = "Edit";
+	public final static String MENU_EDIT_FIND = "Search";
 
 	/**
 	 * String constants for (error) messages
 	 */
-	public final static String MESSAGE_FILE_NOT_FOUND = "Datei nicht gefunden";
-	public final static String MESSAGE_FILE_NOT_FOUND_TITLE = "Fehler";
-	public final static String MESSAGE_REPLACE_FILE = " ist bereits vorhanden.\nWollen Sie sie ersetzen?";
-	public final static String MESSAGE_REPLACE_FILE_TITLE = "Speichern unter best\u00e4tigen";
+	public final static String MESSAGE_FILE_NOT_FOUND = "Data not found";
+	public final static String MESSAGE_FILE_NOT_FOUND_TITLE = "Error";
+	public final static String MESSAGE_REPLACE_FILE = " already exists.\nDo you want to replace it?";
+	public final static String MESSAGE_REPLACE_FILE_TITLE = "Confirm to save";
 
 	private ExperimentEditor experimentEditor;
 	private File currentFile;
@@ -83,6 +83,7 @@ public class ExperimentEditorMenuBar extends JMenuBar {
 		newMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, InputEvent.CTRL_MASK));
 		fileMenu.add(newMenuItem);
 		newMenuItem.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent ae) {
 				currentFile = null;
 				experimentEditor.setTitle(ExperimentEditor.TITLE);
@@ -96,6 +97,7 @@ public class ExperimentEditorMenuBar extends JMenuBar {
 		loadMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_L, InputEvent.CTRL_MASK));
 		fileMenu.add(loadMenuItem);
 		loadMenuItem.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				JFileChooser fc = new JFileChooser(currentFile == null ? new File(".") : currentFile);
 				if (fc.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
@@ -125,6 +127,7 @@ public class ExperimentEditorMenuBar extends JMenuBar {
 		saveMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.CTRL_MASK));
 		fileMenu.add(saveMenuItem);
 		saveMenuItem.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				if (currentFile != null) {
 					experimentEditor.getTabbedPane().save();
@@ -140,6 +143,7 @@ public class ExperimentEditorMenuBar extends JMenuBar {
 		saveAsMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F12, 0));
 		fileMenu.add(saveAsMenuItem);
 		saveAsMenuItem.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				JFileChooser fc = new JFileChooser(currentFile);
 				if (fc.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
@@ -165,9 +169,10 @@ public class ExperimentEditorMenuBar extends JMenuBar {
 		exportMenu = new JMenu("Exportieren");
 		fileMenu.add(exportMenu);
 
-		JMenuItem exportHTMLFileMenuItem = new JMenuItem("HTML-Datei der Fragen");
+		JMenuItem exportHTMLFileMenuItem = new JMenuItem("HTML-Data of the question");
 		exportMenu.add(exportHTMLFileMenuItem);
 		exportHTMLFileMenuItem.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				JFileChooser fc = new JFileChooser(currentFile);
 				if (fc.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
@@ -184,9 +189,10 @@ public class ExperimentEditorMenuBar extends JMenuBar {
 			}
 		});
 
-		exportCSVMenuItem = new JMenuItem("CSV-Datei der Antworten");
+		exportCSVMenuItem = new JMenuItem("CSV data of the answer");
 		exportMenu.add(exportCSVMenuItem);
 		exportCSVMenuItem.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				try {
 					QuestionTreeNode experimentNode = experimentEditor.getTreeComponent().getRoot();
@@ -203,7 +209,7 @@ public class ExperimentEditorMenuBar extends JMenuBar {
 					// csv Datei erstellen
 					QuestionTreeXMLHandler.saveAsCSVFile(formInfos, answerNodes, experimentCode, path);
 				} catch (IOException e) {
-					JOptionPane.showMessageDialog(null, "Fehler bei der Ermittlung des Pfades der geladenen Datei.");
+					JOptionPane.showMessageDialog(null, "Error at finding the path of the loaded data.");
 				}
 			}
 		});
@@ -222,6 +228,7 @@ public class ExperimentEditorMenuBar extends JMenuBar {
 		newMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F, InputEvent.CTRL_MASK));
 		editMenu.add(newMenuItem);
 		newMenuItem.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent ae) {
 				Component current = eE.getTabbedPane().getSelectedComponent();
 				if (current instanceof ContentEditorPanel) {
@@ -232,12 +239,13 @@ public class ExperimentEditorMenuBar extends JMenuBar {
 
 		// EXTRAS
 
-		JMenu extrasMenu = new JMenu("Extras");
+		JMenu extrasMenu = new JMenu("Other");
 		add(extrasMenu);
 
-		nameCheckMenuItem = new JMenuItem("\u00DCberpr\u00FCfung Formularnamen");
+		nameCheckMenuItem = new JMenuItem("Check form name");
 		extrasMenu.add(nameCheckMenuItem);
 		nameCheckMenuItem.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				String globalOutput = "";
 				// get infos
@@ -282,6 +290,7 @@ public class ExperimentEditorMenuBar extends JMenuBar {
 		});
 
 		closeMenuItem.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				System.exit(0);
 			}
@@ -299,7 +308,7 @@ public class ExperimentEditorMenuBar extends JMenuBar {
 	 * @param answerNodes
 	 *  storage for the data from the answer.xml files
 	 * @param experimentCode
-	 *  used experiment code 
+	 *  used experiment code
 	 * @param search
 	 *  if false the answer.xml files of this directory are not used - but the files of the subdirectories are still used
 	 */
@@ -321,8 +330,8 @@ public class ExperimentEditorMenuBar extends JMenuBar {
 						answerNodes.add(node);
 					}
 				} catch (FileNotFoundException e) {
-					JOptionPane.showMessageDialog(null, "Datei " + currentFile.getAbsolutePath()
-							+ " nicht gefunden.");
+					JOptionPane.showMessageDialog(null, "Data " + currentFile.getAbsolutePath()
+							+ " not found.");
 				}
 			}
 		}

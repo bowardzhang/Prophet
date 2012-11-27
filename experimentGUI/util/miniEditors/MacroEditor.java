@@ -51,9 +51,9 @@ import java.awt.Color;
 
 /**
  * A simple editor to create and change the macro.xml
- * 
- * @author Markus K�ppen, Andreas Hasselberg
- * 
+ *
+ * @author Markus Köppen, Andreas Hasselberg
+ *
  */
 public class MacroEditor extends JFrame {
 	private static final long serialVersionUID = 1L;
@@ -69,12 +69,13 @@ public class MacroEditor extends JFrame {
 
 	/**
 	 * Main method - launch application
-	 * 
+	 *
 	 * @param args
 	 *            not used
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
+			@Override
 			public void run() {
 				try {
 					MacroEditor frame = new MacroEditor();
@@ -116,7 +117,7 @@ public class MacroEditor extends JFrame {
 		addPopup(macroList, macroMenuPopupMenu);
 		JMenuItem newMacroMenuItem = new JMenuItem("Neues Makro");
 		macroMenuPopupMenu.add(newMacroMenuItem);
-		JMenuItem removeMacroMenuItem = new JMenuItem("Makro L\u00F6schen");
+		JMenuItem removeMacroMenuItem = new JMenuItem("Makro Löschen");
 		macroMenuPopupMenu.add(removeMacroMenuItem);
 		JPanel macroPanel = new JPanel();
 		contentPane.add(macroPanel, BorderLayout.CENTER);
@@ -132,6 +133,7 @@ public class MacroEditor extends JFrame {
 		macroPanel.add(macroContentTextPane, BorderLayout.CENTER);
 		// close application menu item
 		closeMenuItem.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				System.exit(0);
 			}
@@ -149,14 +151,17 @@ public class MacroEditor extends JFrame {
 						}
 					}
 
+					@Override
 					public void changedUpdate(DocumentEvent arg0) {
 						inputChanged();
 					}
 
+					@Override
 					public void insertUpdate(DocumentEvent arg0) {
 						inputChanged();
 					}
 
+					@Override
 					public void removeUpdate(DocumentEvent arg0) {
 						inputChanged();
 					}
@@ -165,21 +170,25 @@ public class MacroEditor extends JFrame {
 		macroContentTextPane.getDocument().addDocumentListener(new DocumentListener() {
 			private void inputChanged() {
 				macros.get(macroList.getSelectedIndex()).setValue(
-						macroContentTextPane.getText());				
+						macroContentTextPane.getText());
 			}
-			public void changedUpdate(DocumentEvent arg0) {	
-				inputChanged();			
+			@Override
+			public void changedUpdate(DocumentEvent arg0) {
+				inputChanged();
 			}
+			@Override
 			public void insertUpdate(DocumentEvent arg0) {
 				inputChanged();
 			}
+			@Override
 			public void removeUpdate(DocumentEvent arg0) {
 				inputChanged();
 			}
-			
+
 		});
 		// update which macro-content is showed
 		macroList.addListSelectionListener(new ListSelectionListener() {
+			@Override
 			public void valueChanged(ListSelectionEvent e) {
 				if (macroList.getSelectedIndex() != -1) {
 					macroNameTextField.setText(macros.get(
@@ -199,6 +208,7 @@ public class MacroEditor extends JFrame {
 		});
 		//new macro
 		newMacroMenuItem.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				String name = JOptionPane.showInputDialog(null,
 						"Makronamen eingeben: ", "Neues Makro", 1);
@@ -209,6 +219,7 @@ public class MacroEditor extends JFrame {
 		});
 		//remove macro
 		removeMacroMenuItem.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				int selection = macroList.getSelectedIndex();
 				if (selection != -1) {
@@ -218,6 +229,7 @@ public class MacroEditor extends JFrame {
 		});
 		//save macro
 		saveMenuItem.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				Document xmlTree = null;
 				try {
@@ -257,12 +269,14 @@ public class MacroEditor extends JFrame {
 			private String macroName, macroContent;
 			private int fromIndex;
 
+			@Override
 			public void mousePressed(final MouseEvent evt) {
 				macroName = macroNameTextField.getText();
 				macroContent = macroContentTextPane.getText();
 				fromIndex = macroList.getSelectedIndex();
 			}
 
+			@Override
 			public void mouseDragged(final MouseEvent evt) {
 				if (macroList.getSelectedIndex() != -1) {
 					int toIndex = macroList.locationToIndex(evt.getPoint());
@@ -346,6 +360,7 @@ public class MacroEditor extends JFrame {
 	 */
 	private static void addPopup(Component component, final JPopupMenu popup) {
 		component.addMouseListener(new MouseAdapter() {
+			@Override
 			public void mouseReleased(MouseEvent e) {
 				if (e.isPopupTrigger()) {
 					showMenu(e);

@@ -9,7 +9,7 @@ import experimentGUI.util.questionTreeNode.QuestionTreeNode;
 /**
  * Preview of the Content entered in the ContentEditorPanel
  * @author Andreas Hasselberg
- * @author Markus Köppen
+ * @author Markus KÃ¶ppen
  *
  */
 @SuppressWarnings("serial")
@@ -18,7 +18,7 @@ public class ContentViewerPanel extends ExperimentEditorTab {
 	 * the pane featuring the preview
 	 */
 	private QuestionViewPane viewerPane;
-	
+
 	/**
 	 * Constructor
 	 */
@@ -26,10 +26,11 @@ public class ContentViewerPanel extends ExperimentEditorTab {
 		setLayout(new BorderLayout());
 		this.setOpaque(false);
 	}
-	
+
 	/**
 	 * loads the current content and displays it appropriately, called by EditorTabbedPane
 	 */
+	@Override
 	public void activate(QuestionTreeNode selected) {
 		removeAll();
 		updateUI();
@@ -43,6 +44,6 @@ public class ContentViewerPanel extends ExperimentEditorTab {
 	 * saves any changes to the tree, i.e. does nothing, called by EditorTabbedPane
 	 */
 	@Override
-	public void save() {		
+	public void save() {
 	}
 }

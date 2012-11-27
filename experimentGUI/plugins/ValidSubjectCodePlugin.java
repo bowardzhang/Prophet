@@ -22,16 +22,20 @@ public class ValidSubjectCodePlugin implements PluginInterface {
 	private static final String KEY_IGNORE_CASE = "ignorecase";
 
 	@Override
-	public SettingsComponentDescription getSettingsComponentDescription(QuestionTreeNode node) {
+	public SettingsComponentDescription getSettingsComponentDescription(
+			QuestionTreeNode node) {
 		if (node.isExperiment()) {
-			SettingsPluginComponentDescription result = new SettingsPluginComponentDescription(KEY,
-					"Auf Probandencode überprüfen", true);
-			result.addSubComponent(new SettingsComponentDescription(SettingsTextArea.class, KEY_CODES,
-			"gültige Codes (optional)"));
-			result.addSubComponent(new SettingsComponentDescription(SettingsFilePathChooser.class, KEY_PATH,
-			"Probandencodedatei (optional)"));
-			result.addSubComponent(new SettingsComponentDescription(SettingsCheckBox.class, KEY_IGNORE_CASE,
-			"Groß- und Kleinschreibung ignorieren"));
+			SettingsPluginComponentDescription result = new SettingsPluginComponentDescription(
+					KEY, "Check user ID", true);
+			result.addSubComponent(new SettingsComponentDescription(
+					SettingsTextArea.class, KEY_CODES,
+					"Valid IDs (optional)"));
+			result.addSubComponent(new SettingsComponentDescription(
+					SettingsFilePathChooser.class, KEY_PATH,
+					"User ID Data (optional)"));
+			result.addSubComponent(new SettingsComponentDescription(
+					SettingsCheckBox.class, KEY_IGNORE_CASE,
+					"Case-insensitive"));
 			return result;
 		}
 		return null;
@@ -45,7 +49,7 @@ public class ValidSubjectCodePlugin implements PluginInterface {
 	public boolean denyEnterNode(QuestionTreeNode node) {
 		return false;
 	}
-	
+
 	@Override
 	public void enterNode(QuestionTreeNode node) {
 	}
@@ -56,15 +60,17 @@ public class ValidSubjectCodePlugin implements PluginInterface {
 			return null;
 		} else if (Boolean.parseBoolean(currentNode.getAttributeValue(KEY))) {
 			String subjectCode = currentNode.getAnswer(Constants.KEY_SUBJECT);
-			boolean ignoreCase = Boolean.parseBoolean(currentNode.getAttribute(KEY).getAttributeValue(KEY_IGNORE_CASE));
+			boolean ignoreCase = Boolean.parseBoolean(currentNode.getAttribute(
+					KEY).getAttributeValue(KEY_IGNORE_CASE));
 			if (ignoreCase) {
 				subjectCode = subjectCode.toLowerCase();
 			}
-		
-			String codes = currentNode.getAttribute(KEY).getAttributeValue(KEY_CODES);
-			if (codes!=null && !codes.equals("")) {
+
+			String codes = currentNode.getAttribute(KEY).getAttributeValue(
+					KEY_CODES);
+			if (codes != null && !codes.equals("")) {
 				Scanner sc = new Scanner(codes);
-				while(sc.hasNext()) {
+				while (sc.hasNext()) {
 					String line = sc.next();
 					if (ignoreCase) {
 						line = line.toLowerCase();
@@ -74,12 +80,13 @@ public class ValidSubjectCodePlugin implements PluginInterface {
 					}
 				}
 			}
-		
-			String path = currentNode.getAttribute(KEY).getAttributeValue(KEY_PATH);
-			if (path!=null && !path.equals("")) {				
+
+			String path = currentNode.getAttribute(KEY).getAttributeValue(
+					KEY_PATH);
+			if (path != null && !path.equals("")) {
 				try {
 					Scanner sc = new Scanner(new FileReader(path));
-					while(sc.hasNext()) {
+					while (sc.hasNext()) {
 						String line = sc.next();
 						if (ignoreCase) {
 							line = line.toLowerCase();
@@ -89,10 +96,10 @@ public class ValidSubjectCodePlugin implements PluginInterface {
 						}
 					}
 				} catch (FileNotFoundException e) {
-					return "Datei mit gültigen Probandencodes nicht gefunden.";
-				}				
+					return "Valid user ID data not found.";
+				}
 			}
-			return "Probandencode nicht gefunden.";
+			return "User ID not found.";
 		} else {
 			return null;
 		}

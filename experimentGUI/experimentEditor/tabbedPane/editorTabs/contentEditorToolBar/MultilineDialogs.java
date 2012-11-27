@@ -69,6 +69,7 @@ public class MultilineDialogs extends JDialog implements ActionListener {
 		buttonPane.add(cancelButton);	
 	}
 	
+	@Override
 	public void actionPerformed(ActionEvent ae) {
 		if(ae.getActionCommand().equals("ok")) {
 			dialogInfos = new Pair<String, String>(nameTextField.getText(), contentTextPane.getText());

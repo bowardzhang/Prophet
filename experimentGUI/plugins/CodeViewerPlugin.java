@@ -6,6 +6,7 @@ import java.io.File;
 import java.util.HashMap;
 
 import javax.swing.JFrame;
+import javax.swing.WindowConstants;
 
 import experimentGUI.PluginInterface;
 import experimentGUI.experimentViewer.ExperimentViewer;
@@ -31,7 +32,7 @@ public class CodeViewerPlugin implements PluginInterface {
 	public SettingsComponentDescription getSettingsComponentDescription(
 			QuestionTreeNode node) {
 		if (node.getType().equals(QuestionTreeNode.TYPE_CATEGORY)) {
-			SettingsPluginComponentDescription result = new SettingsPluginComponentDescription(KEY, "Codeviewer aktivieren", true);
+			SettingsPluginComponentDescription result = new SettingsPluginComponentDescription(KEY, "Activate code viewer", true);
 			result.addSubComponent(new SettingsComponentDescription(SettingsDirectoryPathChooser.class, CodeViewer.KEY_PATH, "Pfad der Quelltexte:"));
 			result.addSubComponent(Recorder.getSettingsComponentDescription());
 			SettingsComponentDescription desc = CodeViewerPluginList.getSettingsComponentDescription();
@@ -69,7 +70,7 @@ public class CodeViewerPlugin implements PluginInterface {
 			} else {
 				cv.setBounds(bounds);
 			}
-			cv.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+			cv.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 			cv.setVisible(true);
 			codeViewers.put(node, cv);
 		}

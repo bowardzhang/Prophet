@@ -6,16 +6,14 @@ import java.awt.Dimension;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 
 import experimentGUI.util.settingsComponents.SettingsComponent;
 
-public class SettingsTextArea extends SettingsComponent {	
+public class SettingsTextArea extends SettingsComponent {
 	private static final long serialVersionUID = 1L;
 	private JLabel caption;
-	private JTextArea textArea; 
-	
+	private JTextArea textArea;
+
 	public SettingsTextArea() {
 		setPreferredSize(new Dimension(500, 150));
 		setLayout(new BorderLayout());
@@ -38,18 +36,21 @@ public class SettingsTextArea extends SettingsComponent {
 //			@Override
 //			public void removeUpdate(DocumentEvent arg0) {
 //				saveValue();
-//			}			
+//			}
 //		});
 	}
-	
+
+	@Override
 	public void setCaption(String cap) {
 		caption.setText(cap);
 	}
 
+	@Override
 	public void loadValue() {
 		textArea.setText(getTreeNode().getValue());
 	}
 
+	@Override
 	public void saveValue() {
 		getTreeNode().setValue(textArea.getText());
 	}

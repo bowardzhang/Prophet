@@ -17,6 +17,7 @@ public class SettingsPluginComponentDescription extends SettingsComponentDescrip
 	public void addSubComponent(SettingsComponentDescription descr) {
 		subComponents.add(descr);
 	}
+	@Override
 	public SettingsComponent build(QuestionTreeNode treeNode) {
 		SettingsPluginComponent result = (SettingsPluginComponent)super.build(treeNode);
 		if (!enableable) {

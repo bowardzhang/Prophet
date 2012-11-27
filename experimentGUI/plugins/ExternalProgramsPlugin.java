@@ -12,6 +12,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.WindowConstants;
 
 import experimentGUI.PluginInterface;
 import experimentGUI.experimentViewer.ExperimentViewer;
@@ -37,9 +38,9 @@ public class ExternalProgramsPlugin extends Thread implements PluginInterface {
 	public SettingsComponentDescription getSettingsComponentDescription(QuestionTreeNode node) {
 		if (node.isCategory()) {
 			SettingsPluginComponentDescription result = new SettingsPluginComponentDescription(KEY,
-					"Externe Programme starten", true);
+					"Start external program", true);
 			result.addSubComponent(new SettingsComponentDescription(SettingsTextArea.class, KEY_COMMANDS,
-					"Programmpfade (durch Zeilenumbruch getrennt)"));
+					"Program path (separated in lines)"));
 			return result;
 		}
 		return null;
@@ -89,7 +90,7 @@ public class ExternalProgramsPlugin extends Thread implements PluginInterface {
 		panel = new JPanel();
 		panel.setLayout(new VerticalLayout(0, 0));
 		frame.add(new JScrollPane(panel), BorderLayout.CENTER);
-		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		frame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 		frame.setVisible(true);
 	}
 
@@ -97,6 +98,7 @@ public class ExternalProgramsPlugin extends Thread implements PluginInterface {
 		processes.add(id, null);
 		JButton button = new JButton(caption);
 		button.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				Process p = processes.get(id);
 				try {
@@ -111,12 +113,12 @@ public class ExternalProgramsPlugin extends Thread implements PluginInterface {
 						} catch (Exception e1) {
 							JOptionPane
 									.showMessageDialog(null,
-											"Diese Funktion kann erst wieder aufgerufen werden, wenn die bestehende Programminstanz beendet wurde.");
+											"This function can only be called up if the existing program instance was terminated.");
 						}
 					}
 				} catch (IOException e1) {
 					JOptionPane.showMessageDialog(null,
-							"Programm konnte nicht korrekt gestartet werden: " + e1.getMessage());
+							"Cannot start the program correctly: " + e1.getMessage());
 				}
 			}
 		});

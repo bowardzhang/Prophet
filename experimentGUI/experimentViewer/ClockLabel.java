@@ -1,8 +1,8 @@
 /**
 
 
- * Diese Klasse repräsentiert eine Stoppuhr.
- * @author Markus Köppen, Andreas Hasselberg
+ * Diese Klasse reprÃ¤sentiert eine Stoppuhr.
+ * @author Markus KÃ¶ppen, Andreas Hasselberg
  */
 
 package experimentGUI.experimentViewer;
@@ -33,15 +33,15 @@ public class ClockLabel extends JLabel implements Runnable {
 
 	/**
 	 * Konstruktor durch welchen aktuelle Uhrzeit im Label angezeigt wird
-	 * 
+	 *
 	 * @param caption Beschriftung die vor der Uhrzeit stehen soll
 	 */
 	public ClockLabel(String caption) {
 		this(null, caption);
 	}
-	
+
 	/**
-	 * Konstruktor für eine "unsichtbare" Uhr
+	 * Konstruktor fÃ¼r eine "unsichtbare" Uhr
 	 */
 	public ClockLabel() {
 		this(null);
@@ -66,9 +66,9 @@ public class ClockLabel extends JLabel implements Runnable {
 			isRunning = false;
 		}
 	}
-	
+
 	/**
-	 * Lässt die Stoppuhr ihre Arbeit wieder aufnehmen
+	 * Lï¿½sst die Stoppuhr ihre Arbeit wieder aufnehmen
 	 */
 	public void resume() {
 		if(isStarted && !isRunning && !isStopped) {
@@ -94,19 +94,20 @@ public class ClockLabel extends JLabel implements Runnable {
 	}
 
 	/**
-	 * Methode um Abzufragen ob die Stoppuhr gerade läuft
-	 * 
-	 * @return true wenn die Stoppuhr läuft, sonst false
+	 * Methode um Abzufragen ob die Stoppuhr gerade lï¿½uft
+	 *
+	 * @return true wenn die Stoppuhr lï¿½uft, sonst false
 	 */
 	public boolean isActive() {
 		return isRunning;
 	}
 
 	/**
-	 * Die Run Methode des Stoppuhr Threads - alle 1 sek ausgeführt Aktualisiert
+	 * Die Run Methode des Stoppuhr Threads - alle 1 sek ausgefï¿½hrt Aktualisiert
 	 * die derzeitige Zeit und schreibt diese bei Benutzung des ensprechenden
 	 * Konstruktors in das JLabel
 	 */
+	@Override
 	public void run() {
 		startTime = System.currentTimeMillis();
 		isStarted = true;
@@ -136,9 +137,9 @@ public class ClockLabel extends JLabel implements Runnable {
 			}
 		}
 	}
-	
+
 	/**
-	 * Gibt die aktuell gestoppte Zeit zurück
+	 * Gibt die aktuell gestoppte Zeit zurï¿½ck
 	 * @return Zeit Sekunden
 	 */
 	public long getCurrentTime() {
@@ -147,7 +148,7 @@ public class ClockLabel extends JLabel implements Runnable {
 		}
 		return currentTime;
 	}
-	
+
 	private void saveTime() {
 		if (isStarted && questionNode!=null) {
 			questionNode.setAnswerTime(getCurrentTime());

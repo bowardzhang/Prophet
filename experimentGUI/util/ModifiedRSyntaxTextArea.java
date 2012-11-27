@@ -1,5 +1,6 @@
 package experimentGUI.util;
 
+import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
@@ -44,7 +45,7 @@ public class ModifiedRSyntaxTextArea extends RSyntaxTextArea {
     }
     
     private void overrideCtrlDel() {
-    	final KeyStroke stroke = KeyStroke.getKeyStroke(KeyEvent.VK_DELETE, KeyEvent.CTRL_MASK);
+    	final KeyStroke stroke = KeyStroke.getKeyStroke(KeyEvent.VK_DELETE, InputEvent.CTRL_MASK);
     	this.getInputMap().put(stroke, "");
 		final ModifiedRSyntaxTextArea textArea = this;		
 		this.addKeyListener(new KeyListener() {

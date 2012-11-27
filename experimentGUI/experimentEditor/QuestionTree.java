@@ -8,7 +8,7 @@ package experimentGUI.experimentEditor;
  * All Childs of the second Level get a SettingDialog and EditorData will save the informations.
  * All nodes will have a unique name.
  *
- * @author Markus K�ppen, Andreas Hasselberg
+ * @author Markus Köppen, Andreas Hasselberg
  */
 
 import java.awt.Point;
@@ -44,37 +44,37 @@ import experimentGUI.util.questionTreeNode.QuestionTreeNodeListener;
  * based on the QuestionTreeNode class.
  *
  * @author Andreas Hasselberg
- * @author Markus K�ppen
+ * @author Markus Köppen
  *
  */
 public class QuestionTree extends JScrollPane {
 	private static final long serialVersionUID = 1L;
-	
+
 	/**
 	 * the actual JTree component
 	 */
 	private JTree tree;
-	
+
 	/**
 	 * currently selected QuestionTreeNode
 	 */
 	private QuestionTreeNode selected;
-	
+
 	/**
 	 * QuestionTreeNode currently in the Clipboard
 	 */
 	private QuestionTreeNode clipboard;
-	
+
 	/**
 	 * popup menu shown when the experiment node is right clicked
 	 */
 	private JPopupMenu experimentPopup;
-	
+
 	/**
 	 * popup menu shown when a category node is right clicked
 	 */
 	private JPopupMenu categoryPopup;
-	
+
 	/**
 	 * popup menu shown when a question node is right clicked
 	 */
@@ -90,18 +90,18 @@ public class QuestionTree extends JScrollPane {
 	/**
 	 * String constants for the popup menus
 	 */
-	public final static String POPUP_NEW_CATEGORY = "Neue Kategorie";
-	public final static String POPUP_NEW_QUESTION = "Neue Frage";
-	public final static String POPUP_RENAME = "Umbenennen";
-	public final static String POPUP_REMOVE = "L\u00f6schen";
-	public final static String POPUP_COPY = "Kopieren";
-	public final static String POPUP_PASTE = "Einf\u00fcgen";
+	public final static String POPUP_NEW_CATEGORY = "New catagory";
+	public final static String POPUP_NEW_QUESTION = "Neue qustion";
+	public final static String POPUP_RENAME = "Rename";
+	public final static String POPUP_REMOVE = "Delete";
+	public final static String POPUP_COPY = "Copy";
+	public final static String POPUP_PASTE = "Insert";
 
 	/**
 	 * String constants for messages
 	 */
 	public final static String MESSAGE_NAME = "Name:";
-	public final static String MESSAGE_NEW_NAME = "Neuer Name:";
+	public final static String MESSAGE_NEW_NAME = "New name:";
 
 	/**
 	 * String constants for actions
@@ -150,15 +150,18 @@ public class QuestionTree extends JScrollPane {
 			// popup appear under linux and windows as well
 			// http://stackoverflow.com/questions/5736872/java-popup-trigger-in-linux
 			// http://download.oracle.com/javase/tutorial/uiswing/examples/components/PopupMenuDemoProject/src/components/PopupMenuDemo.java
+			@Override
 			public void mouseReleased(MouseEvent e) {
 				maybeShowPopup(e);
 			}
 
+			@Override
 			public void mousePressed(MouseEvent e) {
 				maybeShowPopup(e);
 			}
 		});
 		tree.addTreeSelectionListener(new TreeSelectionListener() {
+			@Override
 			public void valueChanged(TreeSelectionEvent tse) {
 				TreePath selPath = tse.getPath();
 				if (selPath != null) {
@@ -169,6 +172,7 @@ public class QuestionTree extends JScrollPane {
 		});
 
 		ActionListener myActionlistener = new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent ae) {
 				String name;
 				// remove
@@ -195,7 +199,7 @@ public class QuestionTree extends JScrollPane {
 				}
 				// copy
 				if (ae.getActionCommand().equals(ACTION_COPY)) {
-					clipboard = (QuestionTreeNode) selected.copy();
+					clipboard = selected.copy();
 
 					enablePopupItems();
 				}
@@ -213,7 +217,7 @@ public class QuestionTree extends JScrollPane {
 //							JOptionPane.showMessageDialog(null,
 //									"Einer Kategorie k�nnen nur Fragen hinzugef�gt werden.");
 //						} else {
-							addNode(selected, (QuestionTreeNode) clipboard.copy());
+							addNode(selected, clipboard.copy());
 //						}
 //					}
 				}
@@ -279,6 +283,7 @@ public class QuestionTree extends JScrollPane {
 		tree.setDropTarget(new DropTarget() {
 			private static final long serialVersionUID = 1L;
 
+			@Override
 			public void dragOver(DropTargetDragEvent dtde) {
 				QuestionTreeNode source = (QuestionTreeNode) tree.getSelectionPath().getLastPathComponent();
 				Point p = dtde.getLocation();
@@ -297,6 +302,7 @@ public class QuestionTree extends JScrollPane {
 				}
 			}
 
+			@Override
 			public void drop(DropTargetDropEvent dtde) {
 				QuestionTreeNode source = (QuestionTreeNode) tree.getSelectionPath().getLastPathComponent();
 
@@ -322,12 +328,15 @@ public class QuestionTree extends JScrollPane {
 				tree.updateUI();
 			}
 
+			@Override
 			public void dropActionChanged(DropTargetDragEvent arg0) {
 			}
 
+			@Override
 			public void dragExit(DropTargetEvent dte) {
 			}
 
+			@Override
 			public void dragEnter(DropTargetDragEvent arg0) {
 			}
 		});
@@ -355,8 +364,8 @@ public class QuestionTree extends JScrollPane {
 		}
 	}
 
-	
-	
+
+
 	/**
 	 * renames a node
 	 *
@@ -436,7 +445,7 @@ public class QuestionTree extends JScrollPane {
 	}
 
 	/**
-	 * 
+	 *
 	 * @return
 	 *  current experiment tree root node
 	 */
@@ -454,7 +463,7 @@ public class QuestionTree extends JScrollPane {
 			questionTreeListeners = new Vector<QuestionTreeNodeListener>();
 		questionTreeListeners.addElement(l);
 	}
-	
+
 	/**
 	 * Removes a TreeNodeListener from the object
 	 * @param l
@@ -475,6 +484,6 @@ public class QuestionTree extends JScrollPane {
 			return;
 		QuestionTreeNodeEvent event = new QuestionTreeNodeEvent(this, questionTreeNode);
 		for (Enumeration<QuestionTreeNodeListener> e = questionTreeListeners.elements(); e.hasMoreElements();)
-			((QuestionTreeNodeListener) e.nextElement()).questionTreeEventOccured(event);
+			e.nextElement().questionTreeEventOccured(event);
 	}
 }

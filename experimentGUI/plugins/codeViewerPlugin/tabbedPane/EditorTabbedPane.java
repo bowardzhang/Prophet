@@ -6,6 +6,7 @@ import java.util.HashSet;
 
 import javax.swing.JOptionPane;
 import javax.swing.JTabbedPane;
+import javax.swing.SwingConstants;
 
 import experimentGUI.plugins.codeViewerPlugin.CodeViewerPluginList;
 import experimentGUI.plugins.codeViewerPlugin.Recorder;
@@ -13,13 +14,14 @@ import experimentGUI.util.questionTreeNode.QuestionTreeNode;
 
 @SuppressWarnings("serial")
 public class EditorTabbedPane extends JTabbedPane {
+	@SuppressWarnings("unused")
 	private QuestionTreeNode selected;
 	private File showDir;
 	private Recorder recorder;
 	HashSet<EditorPanel> editorPanels;
 
 	public EditorTabbedPane(QuestionTreeNode selected, File showDir, Recorder recorder) {
-		super(JTabbedPane.TOP);
+		super(SwingConstants.TOP);
 		this.selected = selected;
 		this.showDir = showDir;
 		this.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
@@ -47,8 +49,8 @@ public class EditorTabbedPane extends JTabbedPane {
 			this.setSelectedComponent(myPanel);
 			myPanel.grabFocus();
 		} else {
-			JOptionPane.showMessageDialog(this, "Datei " + path
-					+ " konnte nicht automatisch geöffnet werden.", "Fehler", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(this, "Data " + path
+					+ " cannot be opened automatically.", "Error", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 

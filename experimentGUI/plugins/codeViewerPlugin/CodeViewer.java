@@ -43,6 +43,7 @@ public class CodeViewer extends JFrame implements FileListener {
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
+			@Override
 			public void run() {
 				try {
 					CodeViewer frame = new CodeViewer(null, null);
@@ -55,7 +56,7 @@ public class CodeViewer extends JFrame implements FileListener {
 	}
 	
 	public CodeViewer(QuestionTreeNode selected, File saveDir) {
-		setTitle("Quelltext");
+		setTitle("Source Code");
 		setSize(800, 600);
 		setLayout(new BorderLayout());
 		
@@ -72,18 +73,18 @@ public class CodeViewer extends JFrame implements FileListener {
 		String showPath = selected.getAttributeValue(KEY_PATH).replace('/', System.getProperty("file.separator").charAt(0));
 		showDir = new File(showPath==null || showPath.length()==0 ? "." : showPath);
 		if (!showDir.exists()) {
-			JOptionPane.showMessageDialog(this, "Der im Experiment angegebene Pfad ist nicht vorhanden.", "Fehler", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(this, "The path speficied in the experiment does not exist.", "Error", JOptionPane.ERROR_MESSAGE);
 		}
 		
 		menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
 		menuBar.setVisible(false);	
 		
-		fileMenu = new JMenu("Datei");
+		fileMenu = new JMenu("Data");
 		menuBar.add(fileMenu);
 		fileMenu.setVisible(false);
 		
-		editMenu = new JMenu("Bearbeiten");
+		editMenu = new JMenu("Edit");
 		menuBar.add(editMenu);
 		editMenu.setVisible(false);
 		

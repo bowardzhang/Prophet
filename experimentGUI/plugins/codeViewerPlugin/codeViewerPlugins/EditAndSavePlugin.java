@@ -10,7 +10,6 @@ import java.io.IOException;
 import java.util.HashMap;
 
 import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -55,6 +54,7 @@ public class EditAndSavePlugin implements CodeViewerPluginInterface {
 			saveMenuItem.setAccelerator(KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.Event.CTRL_MASK));
 			viewer.addMenuItemToFileMenu(saveMenuItem);
 			saveMenuItem.addActionListener(new ActionListener() {
+				@Override
 				public void actionPerformed(ActionEvent e) {
 					saveActiveFile();
 				}
@@ -63,20 +63,38 @@ public class EditAndSavePlugin implements CodeViewerPluginInterface {
 			saveAllMenuItem.setAccelerator(KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.Event.CTRL_MASK | java.awt.Event.SHIFT_MASK));
 			viewer.addMenuItemToFileMenu(saveAllMenuItem);
 			saveAllMenuItem.addActionListener(new ActionListener() {
+				@Override
 				public void actionPerformed(ActionEvent e) {
 					saveAllFiles();
 				}
 			});
-		}		
+			JMenuItem undo = new JMenuItem("Letzte √Ñnderung r√ºckg√§ngig machen");
+			undo.setAccelerator(KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Z, java.awt.Event.CTRL_MASK | java.awt.Event.SHIFT_MASK));
+			viewer.addMenuItemToEditMenu(undo);
+			undo.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					undoChange();
+				}
+			});
+		}
 	}
-	
+
 	private void saveActiveFile() {
 		Component activeComp = tabbedPane.getSelectedComponent();
 		if (activeComp != null && activeComp instanceof EditorPanel) {
 			saveEditorPanel((EditorPanel) activeComp);
 		}
 	}
-	
+
+	private void undoChange() {
+		Component activeComp = tabbedPane.getSelectedComponent();
+		if (activeComp != null && activeComp instanceof EditorPanel) {
+			RSyntaxTextArea textarea = ((EditorPanel)activeComp).getTextArea();
+			textarea.undoLastAction();
+		}
+	}
+
 	private void saveAllFiles() {
 		for (int i = 0; i < tabbedPane.getTabCount(); i++) {
 			Component myComp = tabbedPane.getComponentAt(i);
@@ -85,7 +103,7 @@ public class EditAndSavePlugin implements CodeViewerPluginInterface {
 			}
 		}
 	}
-	
+
 	private void saveEditorPanel(EditorPanel editorPanel) {
 		File file = new File(saveDir.getPath() + editorPanel.getFilePath());
 		FileWriter fileWriter = null;
@@ -127,27 +145,28 @@ public class EditAndSavePlugin implements CodeViewerPluginInterface {
 				readdDocumentListeners((RSyntaxDocument)doc,listeners);
 			}
 			textArea.setEditable(true);
-			textArea.getDocument().addDocumentListener(new DocumentListener() {			
+			textArea.getDocument().addDocumentListener(new DocumentListener() {
 				private void changeOccured() {
 					isChanged.put(editorPanel, true);
 				}
+				@Override
 				public void changedUpdate(DocumentEvent arg0) {
 //					changeOccured();
 				}
-	
+
 				@Override
 				public void insertUpdate(DocumentEvent arg0) {
 					changeOccured();
 				}
-				
+
 				@Override
 				public void removeUpdate(DocumentEvent arg0) {
 					changeOccured();
-				}			
+				}
 			});
 		}
 	}
-	
+
 	private DocumentListener[] removeDocumentListener(RSyntaxDocument doc) {
 		DocumentListener[] listeners = doc.getDocumentListeners();
 		for (DocumentListener listener : listeners) {
@@ -166,11 +185,7 @@ public class EditAndSavePlugin implements CodeViewerPluginInterface {
 		if (editable) {
 			Boolean changed = isChanged.get(editorPanel);
 			if (changed != null && changed.booleanValue()) {
-				int n = JOptionPane.showConfirmDialog(null, "ƒnderungen speichern?", "Speichern?",
-						JOptionPane.YES_NO_OPTION);
-				if (n == JOptionPane.YES_OPTION) {
-					saveEditorPanel(editorPanel);
-				}
+				saveEditorPanel(editorPanel);
 			}
 			isChanged.remove(editorPanel);
 		}
@@ -179,25 +194,16 @@ public class EditAndSavePlugin implements CodeViewerPluginInterface {
 	@Override
 	public void onClose() {
 		if (editable) {
-			boolean ask = false;
 			for (int i = 0; i < tabbedPane.getTabCount(); i++) {
 				Component myComp = tabbedPane.getComponentAt(i);
 				if (myComp instanceof EditorPanel) {
 					Boolean changed = isChanged.get(myComp);
-					System.out.println(changed);
 					if (changed!=null && changed.booleanValue()) {
-						ask=true;
 						break;
 					}
 				}
 			}
-			if (ask) {
-				int n = JOptionPane.showConfirmDialog(null, "ƒnderungen speichern?", "Speichern?",
-						JOptionPane.YES_NO_OPTION);
-				if (n == JOptionPane.YES_OPTION) {
-					saveAllFiles();
-				}
-			}
+			saveAllFiles();
 			isChanged=null;
 		}
 	}

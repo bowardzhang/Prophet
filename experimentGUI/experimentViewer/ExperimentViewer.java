@@ -15,6 +15,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextPane;
 import javax.swing.UIManager;
+import javax.swing.WindowConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.text.html.HTMLEditorKit;
 
@@ -28,7 +29,7 @@ import experimentGUI.util.questionTreeNode.QuestionTreeXMLHandler;
  * This class shows the html files (questions) creates the navigation and
  * navigates everything...
  *
- * @author Markus K�ppen, Andreas Hasselberg
+ * @author Markus Köppen, Andreas Hasselberg
  *
  */
 public class ExperimentViewer extends JFrame {
@@ -54,6 +55,7 @@ public class ExperimentViewer extends JFrame {
 	private boolean experimentNotRunning = true;
 
 	ActionListener myActionListener = new ActionListener() {
+		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			String command = arg0.getActionCommand();
 			if (command.equals(Constants.KEY_BACKWARD)) {
@@ -69,6 +71,7 @@ public class ExperimentViewer extends JFrame {
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
+			@Override
 			public void run() {
 				try {
 					String laf = UIManager.getSystemLookAndFeelClassName();
@@ -92,13 +95,13 @@ public class ExperimentViewer extends JFrame {
 	 *            the categorieQuestionListsPanel where the overview is shown
 	 */
 	public ExperimentViewer() {
-		setTitle("Aufgaben");
+		setTitle("Tasks");
 		this.setSize(800, 600);
 		setLocationRelativeTo(null);
 
 		String fileName = Constants.DEFAULT_FILE;
 		if (!(new File(fileName).exists())) {
-			fileName = JOptionPane.showInputDialog("Bitte Experiment angeben:");
+			fileName = JOptionPane.showInputDialog("Please specify the name of the experiment:");
 			if (fileName == null) {
 				System.exit(0);
 			}
@@ -110,27 +113,27 @@ public class ExperimentViewer extends JFrame {
 			boolean isInDir = new File(fileName).getCanonicalFile().getParentFile()
 					.equals(new File(".").getCanonicalFile());
 			if (!isInDir) {
-				JOptionPane.showMessageDialog(this, "Experiment nicht im aktuellen Verzeichnis.");
+				JOptionPane.showMessageDialog(this, "The experiment is not found in the current folder.");
 				System.exit(0);
 			}
 			QuestionTreeNode myTree = QuestionTreeXMLHandler.loadXMLTree(fileName);
 			if(myTree!=null) {
 				tree=myTree;
 			} else {
-				JOptionPane.showMessageDialog(this, "Keine g\u00fcltige Experiment-Datei.");
+				JOptionPane.showMessageDialog(this, "No valid experiment data.");
 			}
 		} catch (Exception e) {
-			JOptionPane.showMessageDialog(this, "Experiment nicht gefunden.");
+			JOptionPane.showMessageDialog(this, "The experiment is not found.");
 			System.exit(0);
 		}
 
-		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 		this.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent arg0) {
 				if (experimentNotRunning) {
 					System.exit(0);
-				} else if (JOptionPane.showConfirmDialog(null, "Das Experiment ist noch nicht abgeschlossen. Experiment beenden?", "Best\u00e4tigung", JOptionPane.YES_NO_OPTION)==JOptionPane.YES_OPTION) {
+				} else if (JOptionPane.showConfirmDialog(null, "The experiment is not complete. Exit anyway?", "Confirm", JOptionPane.YES_NO_OPTION)==JOptionPane.YES_OPTION) {
 					exitExperiment = true;
 					currentViewPane.clickSubmit();
 				}
@@ -148,7 +151,7 @@ public class ExperimentViewer extends JFrame {
 		currentNode = superRoot;
 		textPanes = new HashMap<QuestionTreeNode, QuestionViewPane>();
 		times = new HashMap<QuestionTreeNode, ClockLabel>();
-		totalTime = new ClockLabel("Gesamtzeit");
+		totalTime = new ClockLabel("Total time");
 		timePanel = new JPanel();
 		enteredNodes = new HashSet<QuestionTreeNode>();
 		nextNode();
@@ -162,7 +165,7 @@ public class ExperimentViewer extends JFrame {
 		if (currentNode == tree) {
 			String subject = currentNode.getAnswer(Constants.KEY_SUBJECT);
 			if (subject == null || subject.length() == 0) {
-				JOptionPane.showMessageDialog(this, "Bitte Probanden-Code eingeben!", "Fehler!",
+				JOptionPane.showMessageDialog(this, "Please input the user ID!", "Error!",
 						JOptionPane.ERROR_MESSAGE);
 				return false;
 			}
@@ -305,7 +308,7 @@ public class ExperimentViewer extends JFrame {
 			if (currentNode.isExperiment()) {
 				clock = new ClockLabel(currentNode, null);
 			} else {
-				clock = new ClockLabel(currentNode, "Aktuell");
+				clock = new ClockLabel(currentNode, "Current");
 			}
 			times.put(currentNode, clock);
 			clock.start();
@@ -329,7 +332,7 @@ public class ExperimentViewer extends JFrame {
 		JTextPane output = new JTextPane();
 		output.setEditable(false);
 		output.setEditorKit(new HTMLEditorKit());
-		String endMessage = "Befragung beendet.";
+		String endMessage = "Survey complete.";
 		String outputString = "<p>" + endMessage + "</p>";
 		QuestionTreeXMLHandler.saveXMLAnswerTree(tree,
 				saveDir.getPath() + System.getProperty("file.separator") + Constants.FILE_ANSWERS);

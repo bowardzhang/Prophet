@@ -11,24 +11,35 @@ import org.fife.ui.rsyntaxtextarea.RSyntaxDocument;
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 import org.fife.ui.rtextarea.RTextScrollPane;
 
-import experimentGUI.plugins.codeViewerPlugin.CodeViewerPluginList;
-import experimentGUI.plugins.codeViewerPlugin.Recorder;
 import experimentGUI.util.ModifiedRSyntaxTextArea;
-import experimentGUI.util.questionTreeNode.QuestionTreeNode;
 
 
 @SuppressWarnings("serial")
 public class EditorPanel extends JPanel {
 	private String filePath;
+	private File file;
 	private RTextScrollPane scrollPane;
 	private RSyntaxTextArea textArea;
+	private RSyntaxDocument doc;
 
 	/**
 	 * Create the panel.
 	 */
 	public EditorPanel(File file, String path) {
+		this.file = file;
 		this.filePath=path;
-		RSyntaxDocument doc = new RSyntaxDocument("text/plain");
+		doc = new RSyntaxDocument("text/plain");
+		loadFileContent();
+		textArea = new ModifiedRSyntaxTextArea(doc);
+		textArea.setEditable(false);
+		textArea.setFont(new Font("monospaced", Font.PLAIN, 12));
+		scrollPane = new RTextScrollPane(textArea);
+
+		setLayout(new BorderLayout());
+		add(scrollPane, BorderLayout.CENTER);
+	}
+
+	private void loadFileContent() {
 		try {
 			byte[] buffer = new byte[(int) file.length()];
 		    FileInputStream fileStream = new FileInputStream(file);
@@ -37,17 +48,12 @@ public class EditorPanel extends JPanel {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		textArea = new ModifiedRSyntaxTextArea(doc);
-		textArea.setEditable(false);
-		textArea.setFont(new Font("monospaced", Font.PLAIN, 12));
-		scrollPane = new RTextScrollPane(textArea);		
-		
-		setLayout(new BorderLayout());
-		add(scrollPane, BorderLayout.CENTER);
-	}	
+	}
+
+	@Override
 	public void grabFocus() {
 		textArea.grabFocus();
-	}	
+	}
 	public RSyntaxTextArea getTextArea() {
 		return textArea;
 	}

@@ -17,9 +17,9 @@ public class AnswerRequiredPlugin implements PluginInterface {
 	@Override
 	public SettingsComponentDescription getSettingsComponentDescription(QuestionTreeNode node) {
 		SettingsPluginComponentDescription result = new SettingsPluginComponentDescription(KEY,
-			"Benötigte Antworten", true);
+			"Answer required", true);
 		result.addSubComponent(new SettingsComponentDescription(SettingsTextArea.class, KEY_NAMES,
-			"Komponenten, die Antworten enthalten müssen (zeilenweise eingeben):"));
+			"The answer must contain these strings (one string in each line):"));
 		return result;
 	}
 
@@ -48,7 +48,7 @@ public class AnswerRequiredPlugin implements PluginInterface {
 				while(sc.hasNext()) {
 					String requiredAnswerKey = sc.next();
 					if(!answers.containsKey(requiredAnswerKey) || answers.get(requiredAnswerKey).equals("")) {
-						return "Bitte alle benötigten Felder ausfüllen";
+						return "Please complete all required fields";
 					}
 				}
 		}

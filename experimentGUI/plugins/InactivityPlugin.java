@@ -14,10 +14,10 @@ public class InactivityPlugin implements PluginInterface {
 			QuestionTreeNode node) {
 		if (node.isCategory()) {
 			return new SettingsComponentDescription(SettingsCheckBox.class, KEY,
-					"Diesen und alle Unterknoten deaktivieren");
+					"Deactivate this and all its sub-nodes");
 		} else if (node.isQuestion()) {
 			return new SettingsComponentDescription(SettingsCheckBox.class, KEY,
-					"Diesen Knoten deaktivieren");
+					"Deactivate this node");
 		} else {
 			return null;
 		}

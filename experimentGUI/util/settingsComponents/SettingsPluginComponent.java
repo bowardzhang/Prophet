@@ -34,6 +34,7 @@ public class SettingsPluginComponent extends SettingsComponent {
 		add(optionPanel,BorderLayout.CENTER);
 	}
 
+	@Override
 	public void setCaption(String caption) {
 		activatedCheckBox.setText(caption);
 	}
@@ -42,6 +43,7 @@ public class SettingsPluginComponent extends SettingsComponent {
 		optionPanel.add(component);
 	}
 
+	@Override
 	public void loadValue() {
 		boolean active = Boolean.parseBoolean(getTreeNode().getValue());
 		activatedCheckBox.setSelected(active);
@@ -51,6 +53,7 @@ public class SettingsPluginComponent extends SettingsComponent {
 		}
 	}
 
+	@Override
 	public void saveValue() {
 		getTreeNode().setValue(""+activatedCheckBox.isSelected());
 		for (SettingsComponent component : subSettingsComponents) {

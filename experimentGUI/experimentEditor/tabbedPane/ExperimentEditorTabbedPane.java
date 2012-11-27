@@ -3,7 +3,6 @@ package experimentGUI.experimentEditor.tabbedPane;
 import java.awt.Component;
 
 import javax.swing.JComponent;
-import javax.swing.JOptionPane;
 import javax.swing.JTabbedPane;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -17,7 +16,7 @@ import experimentGUI.util.questionTreeNode.QuestionTreeNode;
 /**
  * The right-side tabbed pane of the Experiment Editor
  * @author Andreas Hasselberg
- * @author Markus Köppen
+ * @author Markus KÃ¶ppen
  */
 @SuppressWarnings("serial")
 public class ExperimentEditorTabbedPane extends JTabbedPane {
@@ -29,12 +28,13 @@ public class ExperimentEditorTabbedPane extends JTabbedPane {
 	 * the currently open ExperimentEditorTab
 	 */
 	private ExperimentEditorTab currentTab;
-	
+
 	/**
 	 * Constructor
 	 */
 	public ExperimentEditorTabbedPane() {
 		addChangeListener(new ChangeListener() {
+			@Override
 			public void stateChanged(ChangeEvent arg0) {
 				if (currentTab!=null) {
 					save();
@@ -43,11 +43,11 @@ public class ExperimentEditorTabbedPane extends JTabbedPane {
 				currentTab = (ExperimentEditorTab)getSelectedComponent();
 			}
 		});
-		
+
 		addEditorPanel("Editor", new ContentEditorPanel());
-		addEditorPanel("Vorschau", new ContentViewerPanel());
-		addEditorPanel("Einstellungen", new SettingsEditorPanel());
-		addEditorPanel("Notizen", new NoteEditorPanel());
+		addEditorPanel("Preview", new ContentViewerPanel());
+		addEditorPanel("Settings", new SettingsEditorPanel());
+		addEditorPanel("Notes", new NoteEditorPanel());
 	}
 
 	/**
@@ -69,7 +69,7 @@ public class ExperimentEditorTabbedPane extends JTabbedPane {
 		this.selected=selected;
 		activate();
 	}
-	
+
 	/**
 	 * Informs the currently active editor tab that a new node might have been opened (reload).
 	 */

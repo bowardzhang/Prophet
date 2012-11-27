@@ -65,6 +65,7 @@ public class QuestionTreeNode extends DefaultMutableTreeNode {
 		name=n;
 		return true;
 	}
+	@Override
 	public String toString() {
 		return name;
 //		String ret = name + " { ";
@@ -75,6 +76,7 @@ public class QuestionTreeNode extends DefaultMutableTreeNode {
 //		return ret;
 	}
 	
+	@Override
 	public boolean isLeaf() {
 		return isQuestion();
 	}

@@ -31,6 +31,7 @@ public class MacroBox extends JComboBox {
 		textPane = textP;
 		addItem("Makroauswahl");
 		addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (getSelectedIndex() != 0) {
 					useMacro(macros.get(getSelectedIndex() - 1));
@@ -39,6 +40,7 @@ public class MacroBox extends JComboBox {
 			}
 		});
 		textPane.addKeyListener(new KeyAdapter() {
+			@Override
 			public void keyReleased(KeyEvent ke) {
 				if (ke.isControlDown()) {
 					int key = 0;
