@@ -142,14 +142,14 @@ public class QuestionViewPane extends JScrollPane {
 		};
 		textPane.setEditorKit(kit);
 		
-		// add a css file to the web page
-		/*try {    
-			URL base = this.getClass().getResource("");
-			URL css = new URL(base + "code.css");
+		// Adding a CSS file to the web page. Note that the support for CSS in HTMLEditorKit is weak.
+		try {    
+			URL base = Thread.currentThread().getContextClassLoader().getResource("");
+			URL css = new URL(base + "cpp.css");
 			//System.out.println(HTML_HEAD);//css.toExternalForm()
 		    kit.getStyleSheet().importStyleSheet(css);
 		} catch( MalformedURLException ex ) {
-		}*/
+		}
 
 		textPane.addHyperlinkListener(new HyperlinkListener() {
 			@Override
