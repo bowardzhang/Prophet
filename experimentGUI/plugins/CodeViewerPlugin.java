@@ -5,7 +5,6 @@ import java.awt.Rectangle;
 import java.io.File;
 import java.util.HashMap;
 
-import javax.swing.JFrame;
 import javax.swing.WindowConstants;
 
 import experimentGUI.PluginInterface;
@@ -33,7 +32,7 @@ public class CodeViewerPlugin implements PluginInterface {
 			QuestionTreeNode node) {
 		if (node.getType().equals(QuestionTreeNode.TYPE_CATEGORY)) {
 			SettingsPluginComponentDescription result = new SettingsPluginComponentDescription(KEY, "Activate code viewer", true);
-			result.addSubComponent(new SettingsComponentDescription(SettingsDirectoryPathChooser.class, CodeViewer.KEY_PATH, "Pfad der Quelltexte:"));
+			result.addSubComponent(new SettingsComponentDescription(SettingsDirectoryPathChooser.class, CodeViewer.KEY_PATH, "Source code path:"));
 			result.addSubComponent(Recorder.getSettingsComponentDescription());
 			SettingsComponentDescription desc = CodeViewerPluginList.getSettingsComponentDescription();
 			if (desc!=null) {

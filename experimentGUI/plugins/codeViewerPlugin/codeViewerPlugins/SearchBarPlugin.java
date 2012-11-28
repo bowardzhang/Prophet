@@ -39,7 +39,7 @@ public class SearchBarPlugin implements CodeViewerPluginInterface {
 
 	@Override
 	public SettingsComponentDescription getSettingsComponentDescription() {
-		SettingsPluginComponentDescription result = new SettingsPluginComponentDescription(KEY, "Suchfunktion einschalten", true);
+		SettingsPluginComponentDescription result = new SettingsPluginComponentDescription(KEY, "Enable search function", true);
 		result.addSubComponent(new SettingsComponentDescription(SettingsCheckBox.class,KEY_DISABLE_REGEX, "Regex deaktivieren"));
 		result.addSubComponent(new SettingsComponentDescription(SettingsCheckBox.class,KEY_ENABLE_GLOBAL, "Globale Suche aktivieren"));
 		return result;

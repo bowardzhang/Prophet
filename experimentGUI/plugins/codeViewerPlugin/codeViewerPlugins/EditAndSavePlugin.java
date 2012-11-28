@@ -36,7 +36,7 @@ public class EditAndSavePlugin implements CodeViewerPluginInterface {
 
 	@Override
 	public SettingsComponentDescription getSettingsComponentDescription() {
-		return new SettingsComponentDescription(SettingsCheckBox.class, KEY, "Quelltext editierbar");
+		return new SettingsComponentDescription(SettingsCheckBox.class, KEY, "Source code editable");
 	}
 
 	@Override

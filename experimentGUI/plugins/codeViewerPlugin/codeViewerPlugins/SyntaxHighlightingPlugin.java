@@ -22,7 +22,7 @@ public class SyntaxHighlightingPlugin implements CodeViewerPluginInterface {
 
 	@Override
 	public SettingsComponentDescription getSettingsComponentDescription() {
-		return new SettingsComponentDescription(SettingsCheckBox.class,KEY, "Syntaxhighlighting einschalten");
+		return new SettingsComponentDescription(SettingsCheckBox.class,KEY, "Enable syntax highlighting");
 	}
 
 	@Override

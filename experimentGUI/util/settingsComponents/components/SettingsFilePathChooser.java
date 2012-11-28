@@ -44,7 +44,7 @@ public class SettingsFilePathChooser  extends SettingsComponent {
 //		});
 		add(textField,BorderLayout.CENTER);
 		textField.setColumns(20);
-		pathButton = new JButton("Durchsuchen");
+		pathButton = new JButton("Search");
 		add(pathButton,BorderLayout.EAST);
 		pathButton.addActionListener(new ActionListener() {
 			@Override
@@ -72,7 +72,7 @@ public class SettingsFilePathChooser  extends SettingsComponent {
 					if (selectedPath.startsWith(currentPath)) {
 						selectedPath = selectedPath.substring(currentPath
 								.length() + 1);
-						JOptionPane.showMessageDialog(null, "Bitte beachten Sie:\nDie eben durchgef�hrte Aktion hat einen Pfad erzeugt, der relativ zum aktuellen Arbeitsverzeichnis steht. Sollte Ihre XML-Datei nicht unmittelbar im aktuellen Arbeitsverzeichnis liegen, m�ssen Sie den erzeugten Pfad anpassen.");
+						JOptionPane.showMessageDialog(null, "Notice: The performed action has created a path that is relative to the current working directory. If your XML file is not directly located in the current directory, you might have to change the generated path.");
 					}
 					textField.setText(selectedPath.replace('\\','/'));
 				}
