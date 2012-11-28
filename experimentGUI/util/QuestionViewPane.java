@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLDecoder;
@@ -45,6 +46,10 @@ public class QuestionViewPane extends JScrollPane {
 
 	// constants for the html navigation
 	public static final String HTML_START = "<html><body><form>";
+	
+	//tried to implement code highlighting by javascript, but did not succeed
+	//public static final String HTML_HEAD = "<head><script src=\"http://yandex.st/highlightjs/7.2/highlight.min.js\"></script><script>hljs.initHighlightingOnLoad();</script></head>";
+	
 	public static final String HTML_DIVIDER = "<br /><br /><hr /><br /><br />";
 	public static final String HTML_TYPE_SUBMIT = "submit";
 	public static final String FOOTER_FORWARD = "<input name =\""
@@ -89,7 +94,7 @@ public class QuestionViewPane extends JScrollPane {
 		this.setViewportView(textPane);
 
 		textPane.setEditable(false);
-		textPane.setEditorKit(new HTMLEditorKit() {
+		HTMLEditorKit kit = new HTMLEditorKit() {
 			@Override
 			public ViewFactory getViewFactory() {
 				return new HTMLEditorKit.HTMLFactory() {
@@ -134,7 +139,17 @@ public class QuestionViewPane extends JScrollPane {
 					}
 				};
 			}
-		});
+		};
+		textPane.setEditorKit(kit);
+		
+		// add a css file to the web page
+		/*try {    
+			URL base = this.getClass().getResource("");
+			URL css = new URL(base + "code.css");
+			//System.out.println(HTML_HEAD);//css.toExternalForm()
+		    kit.getStyleSheet().importStyleSheet(css);
+		} catch( MalformedURLException ex ) {
+		}*/
 
 		textPane.addHyperlinkListener(new HyperlinkListener() {
 			@Override
