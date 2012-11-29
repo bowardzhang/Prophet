@@ -20,6 +20,12 @@ public class SettingsCheckBox extends SettingsComponent {
 	public void setCaption(String cap) {
 		myCheckBox.setText(cap);
 	}
+	
+	@Override
+	public String getCaption() {
+		return myCheckBox.getText();
+	}
+	
 	@Override
 	public void loadValue() {
 		myCheckBox.setSelected(Boolean.parseBoolean(getTreeNode().getValue()));
@@ -28,5 +34,8 @@ public class SettingsCheckBox extends SettingsComponent {
 	@Override
 	public void saveValue() {
 		getTreeNode().setValue(""+myCheckBox.isSelected());
+		//System.out.println(" = "+myCheckBox.isSelected());
 	}
+
+
 }

@@ -75,6 +75,7 @@ public class QuestionViewPane extends JScrollPane {
 	private ActionListener actionListener;
 	private QuestionTreeNode questionNode;
 	private JTextPane textPane;
+	public HTMLEditorKit editorKit;
 
 	private FormView submitButton;
 	private boolean doNotFire = false;
@@ -94,7 +95,7 @@ public class QuestionViewPane extends JScrollPane {
 		this.setViewportView(textPane);
 
 		textPane.setEditable(false);
-		HTMLEditorKit kit = new HTMLEditorKit() {
+		editorKit = new HTMLEditorKit() {
 			@Override
 			public ViewFactory getViewFactory() {
 				return new HTMLEditorKit.HTMLFactory() {
@@ -140,16 +141,16 @@ public class QuestionViewPane extends JScrollPane {
 				};
 			}
 		};
-		textPane.setEditorKit(kit);
+		textPane.setEditorKit(editorKit);
 		
 		// Adding a CSS file to the web page. Note that the support for CSS in HTMLEditorKit is weak.
 		try {    
 			URL base = Thread.currentThread().getContextClassLoader().getResource("");
 			URL css = new URL(base + "cpp.css");
 			//System.out.println(HTML_HEAD);//css.toExternalForm()
-		    kit.getStyleSheet().importStyleSheet(css);
+			editorKit.getStyleSheet().importStyleSheet(css);
 		} catch( MalformedURLException ex ) {
-		}
+			}
 
 		textPane.addHyperlinkListener(new HyperlinkListener() {
 			@Override

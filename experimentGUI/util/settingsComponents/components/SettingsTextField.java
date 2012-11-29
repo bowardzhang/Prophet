@@ -42,6 +42,11 @@ public class SettingsTextField extends SettingsComponent{
 	public void setCaption(String cap) {
 		caption.setText(cap);
 	}
+	
+	@Override
+	public String getCaption() {
+		return caption.getText();
+	}
 
 	@Override
 	public void loadValue() {
@@ -50,6 +55,6 @@ public class SettingsTextField extends SettingsComponent{
 
 	@Override
 	public void saveValue() {
-		getTreeNode().setValue(textField.getText());
+		getTreeNode().setValue(textField.getText());		
 	}
 }

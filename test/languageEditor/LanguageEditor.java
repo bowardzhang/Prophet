@@ -44,11 +44,13 @@ import javax.swing.event.ListSelectionListener;
  * This ist a little programm to create/manipulate a xml File, which could be
  * used from language.java
  * 
- * @author Markus Köppen, Andreas Hasselberg
+ * @author Markus Kï¿½ppen, Andreas Hasselberg
  * 
  */
 public class LanguageEditor extends JFrame {
 
+	private static final long serialVersionUID = 1L;
+	
 	/**
 	 * standard language constant
 	 */

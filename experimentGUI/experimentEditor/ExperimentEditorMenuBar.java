@@ -111,7 +111,7 @@ public class ExperimentEditorMenuBar extends JMenuBar {
 
 							enableMenuItems();
 						} else {
-							JOptionPane.showMessageDialog(experimentEditor, "Keine gültige Experiment-Datei.");
+							JOptionPane.showMessageDialog(experimentEditor, "No valid experiment data.");
 						}
 
 					} catch (FileNotFoundException e) {
@@ -131,6 +131,16 @@ public class ExperimentEditorMenuBar extends JMenuBar {
 			public void actionPerformed(ActionEvent arg0) {
 				if (currentFile != null) {
 					experimentEditor.getTabbedPane().save();
+					
+					/*String stt = experimentEditor.getTreeComponent().getRoot().
+							getAttributeValue(Constants.KEY_SHOW_TIMER);
+					System.out.println("showtimer= "+stt);
+					
+					String stq = experimentEditor.getTreeComponent().getRoot().
+							getAttributeValue(Constants.KEY_QUESTIONSWITCHING);
+					System.out.println("questionswitching= "+stq);*/
+					
+					
 					QuestionTreeXMLHandler.saveXMLTree(experimentEditor.getTreeComponent().getRoot(),
 							currentFile.getAbsolutePath());
 				} else {

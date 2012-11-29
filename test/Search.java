@@ -32,7 +32,7 @@ public class Search extends JPanel implements KeyListener, ActionListener,
 	private String text;
 	private String word;
 	JTextArea textarea = null;
-	private Vector<Integer> v; // Vector für die Positionen der Vorkommen
+	private Vector<Integer> v; // Vector fï¿½r die Positionen der Vorkommen
 	private int lastPos; // Position des aktuellen Vorkommen
 
 	final Color HILIT_COLOR_GRAY = Color.LIGHT_GRAY;
@@ -50,8 +50,8 @@ public class Search extends JPanel implements KeyListener, ActionListener,
 	private JCheckBox search_chkbx_upperlower;
 
 	/*
-	 * Konstruktoren für mehrere Komponenten (ausser Textarea) möglich - nur
-	 * extra erstellen und in Methoden dann überprüfen
+	 * Konstruktoren fï¿½r mehrere Komponenten (ausser Textarea) mï¿½glich - nur
+	 * extra erstellen und in Methoden dann ï¿½berprï¿½fen
 	 */
 	public Search(JTextArea textarea) {
 		super();
@@ -165,11 +165,11 @@ public class Search extends JPanel implements KeyListener, ActionListener,
 	}
 
 	/*
-	 * KeyEvents für das Suchfeld
+	 * KeyEvents fï¿½r das Suchfeld
 	 */
 	@Override
 	public void keyReleased(KeyEvent ke) {
-		// wenn enter oder ein alphanumerisches Zeichen gedrückt wurde Suche neu
+		// wenn enter oder ein alphanumerisches Zeichen gedrï¿½ckt wurde Suche neu
 		// starten - klappt nicht
 		// if ((ke.getKeyCode() == KeyEvent.VK_ALPHANUMERIC)||(ke.getKeyCode()
 		// == KeyEvent.VK_ENTER)) {
@@ -182,15 +182,15 @@ public class Search extends JPanel implements KeyListener, ActionListener,
 	}
 
 	/*
-	 * ActionEvents für die Suchbuttons und der Checkbox
+	 * ActionEvents fï¿½r die Suchbuttons und der Checkbox
 	 */
 	@Override
 	public void actionPerformed(ActionEvent ae) {
-		// Vorwärtssuche auslösen
+		// Vorwï¿½rtssuche auslï¿½sen
 		if (ae.getSource() == search_btn_down) {
 			getPos(true);
 		}
-		// Rückwärtssuche auslösen
+		// Rï¿½ckwï¿½rtssuche auslï¿½sen
 		if (ae.getSource() == search_btn_up) {
 			getPos(false);
 		}
@@ -203,7 +203,7 @@ public class Search extends JPanel implements KeyListener, ActionListener,
 	}
 
 	/*
-	 * MouseEvent für das schließen Label
+	 * MouseEvent fï¿½r das schlieï¿½en Label
 	 */
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
@@ -213,17 +213,17 @@ public class Search extends JPanel implements KeyListener, ActionListener,
 	/*
 	 * Allgemeine Suchmethode Baut einen Vector auf, der als Index der
 	 * gefundenen Werte dient. Alle Ergebnisse werden grau Hinterlegt
-	 * eingefärbt, das aktuelle gelb. LastSearchPosition gibt dabei anfangs das
+	 * eingefï¿½rbt, das aktuelle gelb. LastSearchPosition gibt dabei anfangs das
 	 * letzte aktuelle Ergebnis an und muss zum Ende aktualisiert werden, damit
 	 * es das aktuelle angibt
 	 * 
-	 * @param mod boolean der angibt ob vorwärts (true) oder rückwärts (false)
+	 * @param mod boolean der angibt ob vorwï¿½rts (true) oder rï¿½ckwï¿½rts (false)
 	 * gesucht werden soll
 	 * 
 	 * @return true wenn was gefunden, sonst false
 	 */
 	public boolean getPos(boolean forward) {
-		// liste aller vorkommen aufbauen (nur wenn nötig)
+		// liste aller vorkommen aufbauen (nur wenn nï¿½tig)
 		if (word.equals("")) {
 			cancelSearch();
 			return false;
@@ -233,18 +233,17 @@ public class Search extends JPanel implements KeyListener, ActionListener,
 		word = search_chkbx_upperlower.isSelected() ? word : word.toLowerCase();
 		if (lastPos == -1) {
 			v.removeAllElements();
-			// Position in Abhängigkeit ob mit Unterscheidung der Groß-
+			// Position in Abhï¿½ngigkeit ob mit Unterscheidung der Groï¿½-
 			// Kleinschreibung finden
 			int pos = text.indexOf(word);
-			int i = 0;
+
 			while (pos != -1) {
-				i++;
 				v.add(pos);
 				pos = text.indexOf(word, pos + 1);
 			}
 		}
 		if (!v.isEmpty()) {
-			// Vorwärtseinstellung
+			// Vorwï¿½rtseinstellung
 			if (forward) {
 				if (lastPos >= v.size() - 1) {
 					search_lbl_text
@@ -254,7 +253,7 @@ public class Search extends JPanel implements KeyListener, ActionListener,
 				}
 				lastPos = (lastPos >= v.size() - 1) ? 0 : lastPos + 1;
 			}
-			// Rückwärtseinstellung
+			// Rï¿½ckwï¿½rtseinstellung
 			if (!forward) {
 				if (lastPos <= 0) {
 					search_lbl_text
@@ -264,7 +263,7 @@ public class Search extends JPanel implements KeyListener, ActionListener,
 				}
 				lastPos = lastPos <= 0 ? v.size() - 1 : lastPos - 1;
 			}
-			// Ergebnisse einfärben und Cursor setzen
+			// Ergebnisse einfï¿½rben und Cursor setzen
 			showHighlights();
 			search_textfield_word.setForeground(Color.BLACK);
 			search_textfield_word.setBackground(Color.WHITE);
@@ -277,7 +276,7 @@ public class Search extends JPanel implements KeyListener, ActionListener,
 	}
 
 	/*
-	 * Lässt alle Suchergebnissfarbhinterlegungen im Farbschema anzeigen
+	 * Lï¿½sst alle Suchergebnissfarbhinterlegungen im Farbschema anzeigen
 	 */
 	public void showHighlights() {
 		hilit.removeAllHighlights();
@@ -297,7 +296,7 @@ public class Search extends JPanel implements KeyListener, ActionListener,
 	}
 
 	/*
-	 * Lässt alle Suchergebnissfarbhinterlegungen verschwinden
+	 * Lï¿½sst alle Suchergebnissfarbhinterlegungen verschwinden
 	 */
 	public void hideHighlights() {
 		hilit.removeAllHighlights();
@@ -317,7 +316,7 @@ public class Search extends JPanel implements KeyListener, ActionListener,
 	}
 
 	/*
-	 * Führt alle nötigen Vorgänge aus um eine Suche abzubrechen
+	 * Fï¿½hrt alle nï¿½tigen Vorgï¿½nge aus um eine Suche abzubrechen
 	 */
 	public void cancelSearch() {
 		search_textfield_word.setForeground(Color.BLACK);
@@ -336,7 +335,7 @@ public class Search extends JPanel implements KeyListener, ActionListener,
 	}
 
 	/*
-	 * Lässt diese Klasse optisch verschwinden
+	 * Lï¿½sst diese Klasse optisch verschwinden
 	 */
 	public void invisible() {
 		hideHighlights();

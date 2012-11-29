@@ -93,7 +93,7 @@ public class AnswersTest extends JFrame implements ActionListener {
 			while (tagIterator.isValid()) {
 				//store attributes of the current tag
 				AttributeSet as = tagIterator.getAttributes();
-				Enumeration e = as.getAttributeNames();
+				Enumeration<?> e = as.getAttributeNames();
 				String[] attributesContent = new String[ATTRIBUTES.length];
 				while(e.hasMoreElements()) {
 					Object name = e.nextElement();

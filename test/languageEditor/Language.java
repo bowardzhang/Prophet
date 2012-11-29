@@ -8,7 +8,7 @@ import java.util.TreeMap;
  * language and get - per method your desired notes which correspond to a
  * keyword
  * 
- * @author Markus Köppen, Andreas Hasselberg
+ * @author Markus Kï¿½ppen, Andreas Hasselberg
  * 
  */
 public class Language {
@@ -18,11 +18,8 @@ public class Language {
 	private TreeMap<String, TreeMap<String, String>> localKeywords;
 	//contains the current chose language
 	private static String currentLanguage;
-	private String currentLocalLanguage;
 	//fallback language
 	private static String fallbackLanguage;
-	private String localFallbackLanguage;
-	
 	private static final String ERROR_MSG = "not found";
 
 	/**
@@ -60,11 +57,9 @@ public class Language {
 	}
 	
 	public void setLocalLanguage(String language) {
-		currentLocalLanguage = language;
 	}
 	
 	public void setLocalFallbackLanguage(String language) {
-		localFallbackLanguage = language;
 	}
 	
 	

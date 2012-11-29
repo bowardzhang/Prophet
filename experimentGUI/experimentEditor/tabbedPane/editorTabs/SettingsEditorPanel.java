@@ -55,24 +55,42 @@ public class SettingsEditorPanel extends ExperimentEditorTab {
 		this.updateUI();
 		if (selected!=null) {
 			JScrollPane scrollPane = scrollPanes.get(selected);
-			if (scrollPane==null) {
+			if (scrollPane==null) //the tree node has not been displayed before
+			{
 				JPanel settingsPanel = new JPanel();
 				settingsPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
 				settingsPanel.setLayout(new VerticalLayout(5,VerticalLayout.LEFT,VerticalLayout.TOP));
 
-				if (selected.isExperiment()) {
-					settingsPanel.add(new SettingsComponentDescription(SettingsTextField.class, Constants.KEY_EXPERIMENT_CODE,
-							"Experiment-Code: ").build(selected));
+				settingsComponents.put(s, new ArrayList<SettingsComponent>());
+				
+				if (selected.isExperiment()) 
+				{
+					SettingsComponent compExpCode = new SettingsComponentDescription(SettingsTextField.class, 
+							Constants.KEY_EXPERIMENT_CODE, "Experiment-Code: ").build(selected);
+					settingsPanel.add(compExpCode);
+					settingsComponents.get(s).add(compExpCode);
+					
+					SettingsComponent compShowTimer = new SettingsComponentDescription(SettingsCheckBox.class,
+							Constants.KEY_SHOW_TIMER, "Show timer during the experiment").build(selected);
+					settingsPanel.add(compShowTimer);
+					settingsComponents.get(s).add(compShowTimer);
+					
 				}
-				if (selected.isCategory()) {
-					settingsPanel.add(new SettingsComponentDescription(SettingsCheckBox.class,
-							Constants.KEY_DONOTSHOWCONTENT, "Do not show content").build(selected));
-					settingsPanel.add(new SettingsComponentDescription(SettingsCheckBox.class,
-							Constants.KEY_QUESTIONSWITCHING, "Enable forward & backward page navigation").build(selected));
+				if (selected.isCategory()) 
+				{
+					SettingsComponent compAttCss = new SettingsComponentDescription(SettingsCheckBox.class,
+							Constants.KEY_DONOTSHOWCONTENT, "Do not show content").build(selected);
+					settingsPanel.add(compAttCss);
+					settingsComponents.get(s).add(compAttCss);
+					
+					SettingsComponent compShowTimer = new SettingsComponentDescription(SettingsCheckBox.class,
+							Constants.KEY_QUESTIONSWITCHING, "Enable forward & backward page navigation").build(selected);
+					settingsPanel.add(compShowTimer);
+					settingsComponents.get(s).add(compShowTimer);
+					
 				}
 				SettingsComponentDescription desc =PluginList.getSettingsComponentDescription(selected);
 				if (desc != null) {
-					settingsComponents.put(s, new ArrayList<SettingsComponent>());
 					do {
 						SettingsComponent c = desc.build(selected);
 						settingsComponents.get(s).add(c);

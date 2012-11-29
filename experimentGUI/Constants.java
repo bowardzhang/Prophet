@@ -46,4 +46,9 @@ public class Constants {
 	 * html name for the input field used to enter the subject code
 	 */
 	public static final String KEY_SUBJECT = "subjectcode";
+	
+	/**
+	 * show the timer during the experiment
+	 */
+	public static final String KEY_SHOW_TIMER = "showtimer";
 }

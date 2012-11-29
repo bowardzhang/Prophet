@@ -38,6 +38,12 @@ public class SettingsPluginComponent extends SettingsComponent {
 	public void setCaption(String caption) {
 		activatedCheckBox.setText(caption);
 	}
+	
+	@Override
+	public String getCaption() {
+		return activatedCheckBox.getText();
+	}
+	
 	public void addComponent(SettingsComponent component) {
 		subSettingsComponents.add(component);
 		optionPanel.add(component);

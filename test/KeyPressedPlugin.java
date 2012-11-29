@@ -26,7 +26,9 @@ public class KeyPressedPlugin implements PluginInterface {
 	public void experimentViewerRun(ExperimentViewer experimentViewer) {
 		JPanel contentPanel = experimentViewer.getContentPanel();
 		Action xAction = new AbstractAction() {
-            public void actionPerformed(ActionEvent e) {
+			private static final long serialVersionUID = 1L;
+
+			public void actionPerformed(ActionEvent e) {
                 JOptionPane.showMessageDialog(null, "X pressed!");
             }
         };

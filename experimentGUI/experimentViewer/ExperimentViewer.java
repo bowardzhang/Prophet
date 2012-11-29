@@ -36,9 +36,10 @@ public class ExperimentViewer extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	// the textpanes (one for each question)
-	private QuestionViewPane currentViewPane;
+	public QuestionViewPane currentViewPane;
 	private HashMap<QuestionTreeNode, QuestionViewPane> textPanes;
 	// time objects
+	private boolean showtimer = false;
 	private JPanel timePanel;
 	private HashMap<QuestionTreeNode, ClockLabel> times;
 	private ClockLabel totalTime;
@@ -95,7 +96,7 @@ public class ExperimentViewer extends JFrame {
 	 *            the categorieQuestionListsPanel where the overview is shown
 	 */
 	public ExperimentViewer() {
-		setTitle("Tasks");
+		setTitle("Experiment");
 		this.setSize(800, 600);
 		setLocationRelativeTo(null);
 
@@ -162,7 +163,8 @@ public class ExperimentViewer extends JFrame {
 			return false;
 		}
 		pauseClock();
-		if (currentNode == tree) {
+		if (currentNode == tree) // the root experiment node is selected
+		{
 			String subject = currentNode.getAnswer(Constants.KEY_SUBJECT);
 			if (subject == null || subject.length() == 0) {
 				JOptionPane.showMessageDialog(this, "Please input the user ID!", "Error!",
@@ -181,6 +183,10 @@ public class ExperimentViewer extends JFrame {
 					i++;
 				}
 			}
+			
+			showtimer = Boolean.parseBoolean(currentNode
+					.getAttributeValue(Constants.KEY_SHOW_TIMER));
+			
 			totalTime.start();
 			experimentNotRunning=false;
 		}
@@ -288,9 +294,7 @@ public class ExperimentViewer extends JFrame {
 		if (currentViewPane != null) {
 			contentPane.remove(currentViewPane);
 		}
-		if (timePanel != null) {
-			contentPane.remove(timePanel);
-		}
+
 		if (currentNode == null) {
 			return;
 		}
@@ -302,7 +306,6 @@ public class ExperimentViewer extends JFrame {
 		}
 		contentPane.add(currentViewPane, BorderLayout.CENTER);
 
-		timePanel.removeAll();
 		ClockLabel clock = times.get(currentNode);
 		if (clock == null) {
 			if (currentNode.isExperiment()) {
@@ -315,11 +318,18 @@ public class ExperimentViewer extends JFrame {
 		} else {
 			clock.resume();
 		}
-		timePanel.add(clock);
-		timePanel.add(totalTime);
-		contentPane.add(timePanel, BorderLayout.SOUTH);
+		
+		if (showtimer) 
+		{
+			contentPane.remove(timePanel);
+			timePanel.removeAll();
+			
+			timePanel.add(clock);
+			timePanel.add(totalTime);
+			contentPane.add(timePanel, BorderLayout.SOUTH);
+		}
+		
 		contentPane.updateUI();
-
 		this.setEnabled(true);
 	}
 

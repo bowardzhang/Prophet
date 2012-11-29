@@ -30,6 +30,7 @@ public class PluginList {
 	private static Vector<PluginInterface> plugins = new Vector<PluginInterface>() {
 		private static final long serialVersionUID = 1L;
 		{
+			//add(new StyleSheetPlugin());
 			add(new InactivityPlugin());
 			add(new ValidSubjectCodePlugin());
 			add(new CodeViewerPlugin());

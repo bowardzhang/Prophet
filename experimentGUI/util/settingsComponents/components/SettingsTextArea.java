@@ -44,6 +44,11 @@ public class SettingsTextArea extends SettingsComponent {
 	public void setCaption(String cap) {
 		caption.setText(cap);
 	}
+	
+	@Override
+	public String getCaption() {
+		return caption.getText();
+	}
 
 	@Override
 	public void loadValue() {

@@ -61,7 +61,7 @@ public class PHPExportComponent extends SettingsComponent {
 						.showConfirmDialog(
 								null,
 								"Das Passwort wird in Klartext gespeichert. Fortsetzen?",
-								"Bestätigung", JOptionPane.YES_NO_OPTION);
+								"Bestï¿½tigung", JOptionPane.YES_NO_OPTION);
 				if (confirm == JOptionPane.NO_OPTION) {
 					return;
 				}
@@ -111,6 +111,11 @@ public class PHPExportComponent extends SettingsComponent {
 
 	@Override
 	public void setCaption(String caption) {
+	}
+	
+	@Override
+	public String getCaption() {
+		return "PHPExport";
 	}
 
 	@Override

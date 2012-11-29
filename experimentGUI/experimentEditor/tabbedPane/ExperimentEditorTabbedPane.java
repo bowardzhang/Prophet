@@ -37,7 +37,7 @@ public class ExperimentEditorTabbedPane extends JTabbedPane {
 			@Override
 			public void stateChanged(ChangeEvent arg0) {
 				if (currentTab!=null) {
-					save();
+					save(); //save the panel info before it changes
 				}
 				activate();
 				currentTab = (ExperimentEditorTab)getSelectedComponent();
